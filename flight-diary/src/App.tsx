@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
+import  NewDiary  from './components/NewDiary'
 
-interface Diary {
+export interface Diary {
   id: number;
   date: string;
   weather: string;
@@ -10,9 +11,12 @@ interface Diary {
   comment: string;
 }
 
+
+
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [diarys, setDiarys] = useState<Diary[]>([]);
+  // const [newDiary, setNewDiary] = useState<Diary | null>(null)
 
   useEffect(() => {
     axios.get<Diary[]>('http://localhost:3000/api/diaries').then(response => {
@@ -22,6 +26,7 @@ function App() {
 
   return (
     <>
+      <NewDiary diarys={diarys} setDiarys={setDiarys}/>
       <div>
         <h3>Flight Diary</h3>
           {diarys.map((diary) => (
